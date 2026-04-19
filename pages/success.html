@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed | Turtle Bakes</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐢</text></svg>" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="nav-logo">🐢 Turtle <span>Bakes</span></a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">Home</a>
+      <a href="auth.html" class="btn-login" id="auth-btn">Login</a>
+    </div>
+  </nav>
+  <div class="success-page">
+    <div class="success-card animate-in">
+      <div class="success-icon">🎉</div>
+      <h2>Order Confirmed!</h2>
+      <p>Thank you for ordering from Turtle Bakes. Your treats are being freshly prepared with love! 🐢🎂</p>
+      <div style="background:var(--cream-dark);border-radius:var(--radius-sm);padding:16px;margin-bottom:24px;text-align:left;">
+        <div style="font-size:0.8rem;color:var(--text-light);margin-bottom:4px;">Payment ID</div>
+        <div style="font-family:monospace;font-size:0.95rem;color:var(--chocolate);word-break:break-all;" id="payment-id">—</div>
+      </div>
+      <div style="font-size:0.88rem;color:var(--text-mid);margin-bottom:24px;line-height:1.6;">
+        📞 We will contact you on WhatsApp to confirm your delivery time.<br>
+        🎂 Your cake is being freshly baked for you!
+      </div>
+      <a href="../index.html" class="btn btn-primary btn-full" style="margin-bottom:12px;">Order More Treats</a>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/auth-guard.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const pid = params.get('pid');
+    const pidEl = document.getElementById('payment-id');
+    if (pid && pidEl) pidEl.textContent = pid;
+  </script>
+</body>
+</html>

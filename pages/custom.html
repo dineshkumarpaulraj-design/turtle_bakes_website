@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Cake Order | Turtle Bakes</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐢</text></svg>" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="nav-logo">🐢 Turtle <span>Bakes</span></a>
+    <div class="nav-links">
+      <a href="../index.html" class="nav-link">← Menu</a>
+      <a href="cart.html" class="nav-cart" id="nav-cart">🛒<span id="cart-badge">0</span></a>
+      <a href="auth.html" class="btn-login" id="auth-btn">Login</a>
+    </div>
+  </nav>
+
+  <main class="tb-custom-page">
+    <div class="tb-custom-card animate-in">
+      <div class="tb-custom-hero">
+        <div class="tb-custom-hero-icon">🎂</div>
+        <h1>Design Your Dream Cake</h1>
+        <p>Tell us exactly what you want — we'll bake it fresh with love.</p>
+      </div>
+      <div class="tb-custom-form" id="tb-custom-form">
+        <div class="form-group">
+          <label class="form-label">🍰 Choose Flavour</label>
+          <select class="form-input" id="tb-flavour">
+            <option value="">-- Select flavour --</option>
+            <option value="Vanilla">Vanilla</option>
+            <option value="Strawberry">Strawberry</option>
+            <option value="Black Forest">Black Forest</option>
+            <option value="White Forest">White Forest</option>
+            <option value="Butterscotch">Butterscotch</option>
+            <option value="Pista">Pista</option>
+            <option value="Rasamalai">Rasamalai</option>
+            <option value="Chocotruffle">Chocotruffle</option>
+            <option value="Rosemilk">Rosemilk</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">⚖️ Cake Weight</label>
+          <select class="form-input" id="tb-weight">
+            <option value="0.5" data-price="0">½ kg (serves 6–8)</option>
+            <option value="1" data-price="200">1 kg (serves 10–14)</option>
+            <option value="1.5" data-price="350">1.5 kg (serves 15–20)</option>
+            <option value="2" data-price="500">2 kg (serves 20–25)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🎁 Cake Type</label>
+          <select class="form-input" id="tb-cake-type">
+            <option value="Ice Cake">Ice Cake (Whipped Cream)</option>
+            <option value="Fondant Cake">Fondant Cake (+₹200)</option>
+            <option value="Bento Cake">Bento / Mini Cake</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">✍️ Message on Cake <span style="color:var(--text-light);font-weight:400">(optional)</span></label>
+          <input class="form-input" id="tb-cake-msg" type="text" maxlength="60" placeholder='e.g. "Happy Birthday Priya! 🎉"' />
+          <span style="font-size:0.78rem;color:var(--text-light);" id="tb-msg-count">0 / 60</span>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📝 Special Instructions</label>
+          <textarea class="form-input" id="tb-instructions" rows="3" placeholder="e.g. Nut-free, extra cream, no fondant..."></textarea>
+        </div>
+        <div class="tb-price-preview" id="tb-price-preview">
+          <span>Estimated Price</span>
+          <strong id="tb-custom-price">₹380</strong>
+        </div>
+        <button class="btn btn-primary btn-full" id="tb-custom-add-btn" onclick="tbAddCustomToCart()">🛒 Add to Cart</button>
+        <a href="cart.html" class="btn btn-outline btn-full">View Cart</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-logo">🐢 Turtle Bakes</div>
+    <p>Handcrafted with love · Virudhunagar, Tamil Nadu</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/supabase-config.js"></script>
+  <script src="../js/app.js"></script>
+  <script src="../js/auth-guard.js"></script>
+  <script src="../js/features.js"></script>
+  <script>
+    const TB_FLAVOUR_PRICES = {
+      'Vanilla':380,'Strawberry':390,'Black Forest':430,'White Forest':430,
+      'Butterscotch':440,'Pista':450,'Rasamalai':480,'Chocotruffle':480,'Rosemilk':300,
+    };
+    function tbCalcPrice() {
+      const flavour  = document.getElementById('tb-flavour').value;
+      const weightEl = document.getElementById('tb-weight');
+      const typeEl   = document.getElementById('tb-cake-type');
+      const base     = TB_FLAVOUR_PRICES[flavour] || 380;
+      const weightAdd = parseInt(weightEl.options[weightEl.selectedIndex]?.dataset.price || 0, 10);
+      const fondant  = typeEl.value === 'Fondant Cake' ? 200 : 0;
+      const total    = base + weightAdd + fondant;
+      document.getElementById('tb-custom-price').textContent = '₹' + total.toLocaleString('en-IN');
+      return total;
+    }
+    ['tb-flavour','tb-weight','tb-cake-type'].forEach(id => {
+      document.getElementById(id)?.addEventListener('change', tbCalcPrice);
+    });
+    document.getElementById('tb-cake-msg')?.addEventListener('input', function() {
+      document.getElementById('tb-msg-count').textContent = `${this.value.length} / 60`;
+    });
+    function tbAddCustomToCart() {
+      const flavour = document.getElementById('tb-flavour').value;
+      if (!flavour) { showToast('⚠️ Please choose a flavour', 'error'); return; }
+      const weight = document.getElementById('tb-weight').value;
+      const type   = document.getElementById('tb-cake-type').value;
+      const msg    = document.getElementById('tb-cake-msg').value.trim();
+      const notes  = document.getElementById('tb-instructions').value.trim();
+      const price  = tbCalcPrice();
+      Cart.items.push({
+        id:'custom_'+Date.now(), name:`Custom ${flavour} Cake (${weight}kg)`,
+        category:type, price, emoji:'🎂', badge:'Custom', qty:1, isCustom:true,
+        customDetails:{flavour,weight,type,message:msg,instructions:notes},
+      });
+      Cart.save();
+      showToast(`🎂 Custom ${flavour} cake added!`, 'success');
+      document.getElementById('tb-flavour').value='';
+      document.getElementById('tb-weight').value='0.5';
+      document.getElementById('tb-cake-type').value='Ice Cake';
+      document.getElementById('tb-cake-msg').value='';
+      document.getElementById('tb-instructions').value='';
+      document.getElementById('tb-msg-count').textContent='0 / 60';
+      tbCalcPrice();
+    }
+    document.addEventListener('DOMContentLoaded', tbCalcPrice);
+  </script>
+</body>
+</html>

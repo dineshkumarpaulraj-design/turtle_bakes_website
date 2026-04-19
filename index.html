@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turtle Bakes</title>
+  <meta name="description" content="Order handcrafted cakes and brownies from Turtle Bakes. Fresh, delicious, and delivered with love." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐢</text></svg>" />
+</head>
+<body>
+
+  <!-- OFFERS BANNER -->
+  <div id="tb-offers-bar"></div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">🐢 Turtle <span>Bakes</span></a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="pages/dashboard.html" class="nav-link">My Orders</a>
+      <a href="pages/custom.html" class="nav-link">🎂 Custom</a>
+      <a href="pages/cart.html" class="nav-cart" id="nav-cart" title="View Cart">
+        🛒
+        <span id="cart-badge">0</span>
+      </a>
+      <a href="pages/auth.html" class="btn-login" id="auth-btn">Login / Register</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-eyebrow">🎂 Handcrafted Freshly Daily</span>
+      <h1>Baked with <em>love</em>, served with joy</h1>
+      <p>Discover our artisan cakes, rich brownies, and adorable bento cakes — crafted from the finest ingredients for every celebration.</p>
+      <div class="hero-actions">
+        <a href="#products" class="btn btn-primary">Browse Our Menu</a>
+        <a href="pages/cart.html" class="btn btn-outline">View Cart</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>27+</strong><span>Flavours</span></div>
+        <div class="hero-stat"><strong>100%</strong><span>Fresh Daily</span></div>
+        <div class="hero-stat"><strong>500+</strong><span>Happy Orders</span></div>
+      </div>
+      <div id="tb-visitor-count">👀 Loading...</div>
+    </div>
+    <div class="hero-image">
+       <img id="mainCake" src="images/cake1.jpg" alt="Cake">
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="products">
+    <div class="section-header">
+      <span class="section-tag">Our Menu</span>
+      <h2>Sweet Creations</h2>
+      <p>Every item is made fresh to order with premium ingredients and pure love.</p>
+    </div>
+    <div class="category-filter" id="category-filter">
+      <button class="filter-btn active" data-category="all">All Items</button>
+      <button class="filter-btn" data-category="Ice Cakes">🎂 Ice Cakes</button>
+      <button class="filter-btn" data-category="Brownies">🍫 Brownies</button>
+      <button class="filter-btn" data-category="Bento Cakes">🎁 Bento Cakes</button>
+    </div>
+    <div class="product-grid" id="product-grid"></div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="products-section" style="background:var(--cream-dark);">
+    <div id="tb-reviews-section">
+      <div class="loader"><div class="spinner"></div><p>Loading reviews...</p></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">🐢 Turtle Bakes</div>
+    <p>Handcrafted with love by Priyanka · Virudhunagar, Tamil Nadu</p>
+    <p style="margin-top:10px;font-size:0.82rem;opacity:0.7;">
+      <a href="pages/custom.html" style="color:var(--caramel-light);margin-right:16px;">🎂 Custom Cake</a>
+      <a href="pages/dashboard.html" style="color:var(--caramel-light);margin-right:16px;">🧾 My Orders</a>
+      <a href="pages/auth.html" style="color:var(--caramel-light);">👤 Account</a>
+    </p>
+    <p style="margin-top:8px;font-size:0.78rem;opacity:0.5;">© 2026 Turtle Bakes. All rights reserved.</p>
+  </footer>
+
+  <!-- SCRIPTS — order matters -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/auth-guard.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/features.js"></script>
+  <script>
+const images = [
+  "images/cake1.png",
+  "images/cake2.png",
+  "images/cake3.png"
+];
+
+let i = 0;
+
+setInterval(() => {
+  i = (i + 1) % images.length;
+  const img = document.getElementById("mainCake");
+  if (img) img.src = images[i];
+}, 3000);
+</script>
+</body>
+</html>
