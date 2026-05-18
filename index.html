@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turtle Bakes </title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" sizes="64x64" href="logo.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-turtle"><img src="logo.png" alt="" style="width: 80px;"></span>
+        <div class="logo-text">
+          <span class="logo-main">Turtle Bakes</span>
+          <span class="logo-tagline">Artisan Confections</span>
+        </div>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li class="nav-dropdown-item">
+          <a href="#menu" class="nav-link nav-dropdown-trigger">
+            Menu <i class="fas fa-chevron-down nav-arrow"></i>
+          </a>
+          <div class="nav-dropdown">
+            <div class="nav-dropdown-inner">
+              <div class="dropdown-group">
+                <p class="dropdown-group-label">🎂 Ice Cakes</p>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Vanilla Cake <span>₹380</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Strawberry Cake <span>₹390</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Black Forest <span>₹430</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">White Forest <span>₹430</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Butterscotch Cake <span>₹440</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Pista Flavour Cake <span>₹450</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Rasamalai Cake <span>₹480</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="ice-cakes">Chocotruffle Cake <span>₹480</span></a>
+              </div>
+              <div class="dropdown-group">
+                <p class="dropdown-group-label">🍫 Brownies</p>
+                <a href="#menu" class="dropdown-link" data-cat="brownies">Classic Brownie <span>₹220</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="brownies">Milk Chocolate <span>₹235</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="brownies">Double Chocolate <span>₹245</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="brownies">Triple Chocolate <span>₹255</span></a>
+              </div>
+              <div class="dropdown-group">
+                <p class="dropdown-group-label">🧁 Bento Cakes</p>
+                <a href="#menu" class="dropdown-link" data-cat="bento">Vanilla Bento <span>₹270</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="bento">White Forest Bento <span>₹280</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="bento">Rasamalai Bento <span>₹290</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="bento">Butterscotch Bento <span>₹290</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="bento">Pista Bento <span>₹300</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="bento">Rosemilk Bento <span>₹300</span></a>
+                <a href="#menu" class="dropdown-link" data-cat="bento">Chocotruffle Bento <span>₹320</span></a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#reviews" class="nav-link">Reviews</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="estimator.html" class="nav-link">Estimator</a></li>
+        <li>
+          <a href="wishlist.html" class="nav-link wishlist-nav-link" aria-label="Open wishlist">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+            <span class="wishlist-count" data-wishlist-count>0</span>
+          </a>
+        </li>
+      </ul>
+      <!-- Desktop: Order Form button | Mobile: WhatsApp -->
+      <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+        class="nav-cta nav-cta-mobile">
+        <i class="fab fa-whatsapp"></i> Order Now
+      </a>
+      <button class="nav-cta nav-cta-desktop" id="orderFormBtn" onclick="openOrderForm()">
+        <i class="fas fa-shopping-bag"></i> Order Now
+      </button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO CAROUSEL
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <div class="hero-slider" id="heroSlider">
+
+      <!-- Slide 1 -->
+      <div class="hero-slide active" style="--slide-bg: url('cake1.png')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <p class="slide-label fade-up">Handcrafted with Love</p>
+          <h1 class="slide-title fade-up delay-1">THE ART OF<br><em>HOMEMADE BAKING</em></h1>
+          <p class="slide-sub fade-up delay-2">Crafted with love & premium ingredients</p>
+          <a href="#menu" class="btn-primary fade-up delay-3">
+            <span>View Menu</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="hero-slide" style="--slide-bg: url('cake2.png')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <h1 class="slide-title fade-up delay-1">BAKED FROM THE<br><em>HEART OF HOME</em></h1>
+          <p class="slide-sub fade-up delay-2">Every slice tells a story of passion</p>
+          <a href="#menu" class="btn-primary fade-up delay-3">
+            <span>Explore Cakes</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="hero-slide" style="--slide-bg: url('cake3.png')">
+        <div class="slide-overlay"></div>
+        <div class="slide-content">
+          <p class="slide-label fade-up">Custom Creations</p>
+          <h1 class="slide-title fade-up delay-1">YOUR DREAM CAKE<br><em>MADE REAL</em></h1>
+          <p class="slide-sub fade-up delay-2">Customized to your design & taste</p>
+          <a href="#contact" class="btn-primary fade-up delay-3">
+            <span>Contact Us</span>
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slider Controls -->
+    <button class="slider-btn prev" id="heroPrev" aria-label="Previous slide">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+    <button class="slider-btn next" id="heroNext" aria-label="Next slide">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+    <div class="slider-dots" id="heroDotsContainer"></div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MARQUEE STRIP
+  ═══════════════════════════════════════════ -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>🎂 Ice Cakes</span>
+      <span>✦</span>
+      <span>🍫 Rich Brownies</span>
+      <span>✦</span>
+      <span>🧁 Bento Cakes</span>
+      <span>✦</span>
+      <span>💛 Made With Love</span>
+      <span>✦</span>
+      <span>🎂 Ice Cakes</span>
+      <span>✦</span>
+      <span>🍫 Rich Brownies</span>
+      <span>✦</span>
+      <span>🧁 Bento Cakes</span>
+      <span>✦</span>
+      <span>💛 Made With Love</span>
+      <span>✦</span>
+      <span>🎂 Ice Cakes</span>
+      <span>✦</span>
+      <span>🍫 Rich Brownies</span>
+      <span>✦</span>
+      <span>🧁 Bento Cakes</span>
+      <span>✦</span>
+      <span>💛 Made With Love</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       FEATURED SLIDER
+  ═══════════════════════════════════════════ -->
+  <section class="featured" id="featured">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Our Bestsellers</p>
+      <h2 class="section-title">Freshly Baked <em>Favourites</em></h2>
+      <p class="section-sub">Our most-loved creations, made fresh daily with the finest ingredients</p>
+    </div>
+
+    <div class="featured-wrapper">
+      <button class="feat-btn feat-prev" id="featPrev" aria-label="Previous"><i
+          class="fas fa-chevron-left"></i></button>
+      <div class="featured-track-container">
+        <div class="featured-track" id="featuredTrack">
+
+          <div class="feat-card reveal">
+            <div class="feat-img-wrap">
+              <img src="chocotruffle.webp" alt="Chocotruffle Cake"
+                loading="lazy" />
+              <div class="feat-badge">Best Seller</div>
+            </div>
+            <div class="feat-info">
+              <h3>Chocotruffle Cake</h3>
+              <p>Decadent triple-layered chocolate dream</p>
+              <div class="feat-price">From ₹480</div>
+            </div>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-img-wrap">
+              <img src="vennila.png" alt="Vanilla Cake"
+                loading="lazy" />
+            </div>
+            <div class="feat-info">
+              <h3>Classic Vanilla</h3>
+              <p>Timeless, fluffy & perfectly sweetened</p>
+              <div class="feat-price">From ₹380</div>
+            </div>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-img-wrap">
+              <img src="blackforest.png" alt="Black Forest"
+                loading="lazy" />
+              <div class="feat-badge">Popular</div>
+            </div>
+            <div class="feat-info">
+              <h3>Black Forest</h3>
+              <p>Cherries, cream & chocolate sponge</p>
+              <div class="feat-price">From ₹430</div>
+            </div>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-img-wrap">
+              <img src="triple-chocolate-brownie.webp" alt="Brownie"
+                loading="lazy" />
+            </div>
+            <div class="feat-info">
+              <h3>Triple Chocolate Brownie</h3>
+              <p>Rich, fudgy & intensely chocolatey</p>
+              <div class="feat-price">₹255</div>
+            </div>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-img-wrap">
+              <img src="strawberry.png" alt="Strawberry Cake"
+                loading="lazy" />
+            </div>
+            <div class="feat-info">
+              <h3>Strawberry Cake</h3>
+              <p>Fresh berries & light whipped cream</p>
+              <div class="feat-price">From ₹390</div>
+            </div>
+          </div>
+
+          <div class="feat-card reveal">
+            <div class="feat-img-wrap">
+              <img src="Butterscotch Bento Cake.png" alt="Bento Cake"
+                loading="lazy" />
+              <div class="feat-badge">New</div>
+            </div>
+            <div class="feat-info">
+              <h3>Bento Cake</h3>
+              <p>Adorable mini cakes for every occasion</p>
+              <div class="feat-price">From ₹270</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="feat-btn feat-next" id="featNext" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       BAKING SCENE BANNER
+  ═══════════════════════════════════════════ -->
+  <section class="baking-banner reveal">
+    <div class="baking-img">
+      <img src="bakey_owner.png" alt="Baking Scene"
+        loading="lazy" />
+      <div class="baking-overlay"></div>
+    </div>
+    <div class="baking-content">
+      <p class="section-eyebrow light">Our Promise</p>
+      <h2>From Our Oven<br><em>To Your Table</em></h2>
+      <p>At Turtle Bakes, every bite is a labour of love. From our oven to you, we promise to deliver the freshest, most
+        delicious baked goods straight from our home to yours.</p>
+      <a href="#contact" class="btn-outline">
+        <span>Get In Touch</span>
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MENU SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="menu" id="menu">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Our Offerings</p>
+      <h2 class="section-title">The <em>Menu</em></h2>
+      <p class="section-sub">Freshly made to order · Prices vary based on customization</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="menu-tabs reveal">
+      <button class="tab-btn active" data-cat="ice-cakes">🎂 Ice Cakes</button>
+      <button class="tab-btn" data-cat="brownies">🍫 Brownies</button>
+      <button class="tab-btn" data-cat="bento">🧁 Bento Cakes</button>
+    </div>
+
+    <!-- Ice Cakes -->
+    <div class="menu-grid" id="ice-cakes">
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="vennila.png" alt="Vanilla Cake"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Vanilla Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Classic, light & perfectly sweet</p>
+          <div class="menu-price">₹380</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="strawberry.png" alt="Strawberry Cake"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Strawberry Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Fresh strawberry & whipped cream</p>
+          <div class="menu-price">₹390</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="blackforest.png" alt="Black Forest"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Black Forest Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Chocolate sponge with cherries</p>
+          <div class="menu-price">₹430</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="whiteforest.png" alt="White Forest"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>White Forest Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Light white chocolate & cream</p>
+          <div class="menu-price">₹430</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="butter.png" alt="Butterscotch"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Butterscotch Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Caramel crunch & cream delight</p>
+          <div class="menu-price">₹440</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="pista.png" alt="Pista Cake"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Pista Flavour Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Rich pistachio & light sponge</p>
+          <div class="menu-price">₹450</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="rasamalai.png" alt="Rasamalai Cake"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Rasamalai Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Traditional rasamalai infused</p>
+          <div class="menu-price">₹480</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="chocotruffle.webp" alt="Chocotruffle"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Chocotruffle Cake</h4>
+            <span class="menu-tag">½ kg</span>
+          </div>
+          <p>Luxurious dark chocolate truffle</p>
+          <div class="menu-price">₹480</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brownies -->
+    <div class="menu-grid hidden" id="brownies">
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="classicbrownie.jpg" alt="Classic Brownie"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Classic Brownie</h4>
+            <span class="menu-tag">Per piece</span>
+          </div>
+          <p>Fudgy, dense & perfectly rich</p>
+          <div class="menu-price">₹220</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="milk_chocolate_brownies1.webp"
+            alt="Milk Chocolate Brownie" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Milk Chocolate Brownie</h4>
+            <span class="menu-tag">Per piece</span>
+          </div>
+          <p>Creamy milk chocolate swirled</p>
+          <div class="menu-price">₹235</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="double-chocolate-brownie.jpg" alt="Double Chocolate Brownie"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Double Chocolate Brownie</h4>
+            <span class="menu-tag">Per piece</span>
+          </div>
+          <p>Double the chocolate, double the joy</p>
+          <div class="menu-price">₹245</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="triple-chocolate-brownie.webp"
+            alt="Triple Chocolate Brownie" loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Triple Chocolate Brownie</h4>
+            <span class="menu-tag">Per piece</span>
+          </div>
+          <p>The ultimate chocolate indulgence</p>
+          <div class="menu-price">₹255</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bento Cakes -->
+    <div class="menu-grid hidden" id="bento">
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="venila-bento-cake.png" alt="Bento Vanilla"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Vanilla Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Sweet, simple & adorable</p>
+          <div class="menu-price">₹270</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="White Forest Bento Cake.png" alt="Bento White Forest"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>White Forest Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Delicate white chocolate cream</p>
+          <div class="menu-price">₹280</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="Rasamalai Bento Cake.png" alt="Bento Rasamalai"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Rasamalai Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Indian flavour in a mini box</p>
+          <div class="menu-price">₹290</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="Butterscotch Bento Cake.png" alt="Bento Butterscotch"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Butterscotch Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Caramel crunch in every bite</p>
+          <div class="menu-price">₹290</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="Pista Bento Cake.png" alt="Bento Pista"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Pista Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Nutty pistachio perfection</p>
+          <div class="menu-price">₹300</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="Rosemilk Bento Cake.png" alt="Bento Rosemilk"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Rosemilk Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Floral rose & sweet milk</p>
+          <div class="menu-price">₹300</div>
+        </div>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-card-img">
+          <img src="Chocotruffle Bento Cake.png" alt="Bento Chocotruffle"
+            loading="lazy" />
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-top">
+            <h4>Chocotruffle Bento</h4>
+            <span class="menu-tag">Mini</span>
+          </div>
+          <p>Intense truffle in mini form</p>
+          <div class="menu-price">₹320</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-note reveal">
+      <i class="fas fa-info-circle"></i>
+      <span>Prices shown are base prices. Final price may vary based on customization, design complexity, and special
+        ingredients.</span>
+    </div>
+
+    <div class="menu-cta reveal">
+      <p>Want a custom cake?</p>
+      <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+        class="btn-whatsapp">
+        <i class="fab fa-whatsapp"></i>
+        Message Us on WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STATS BAR
+  ═══════════════════════════════════════════ -->
+  <div class="stats-bar reveal">
+    <div class="stats-container">
+      <div class="stat-item">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="25">0</div>
+        <div class="stat-label">Unique Flavours</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="3">0</div>
+        <div class="stat-label">Years of Baking</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <div class="stat-num" data-target="100">0</div>
+        <div class="stat-label">% Homemade</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ABOUT SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="about-container">
+      <div class="about-images reveal">
+        <div class="about-img-main">
+          <img src="bakey_owner2.png" alt="Baking Scene"
+            loading="lazy" />
+        </div>
+        <div class="about-img-accent">
+          <img src="cake1.png" alt="Cake"
+            loading="lazy" />
+          
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <p class="section-eyebrow">Our Story</p>
+        <h2 class="section-title">Meet <em>Priyanga</em></h2>
+        <p class="about-lead">A labour of love, baked into every cake.</p>
+        <p class="about-body">
+          We create homemade cakes with love, customized to your design and taste. Every creation that leaves our
+          kitchen carries the warmth of a home kitchen and the precision of a passionate baker.
+        </p>
+        <p class="about-body">
+          From birthdays to anniversaries, from intimate celebrations to grand events — Turtle Bakes is here to make
+          your moment sweeter. We believe that the best cakes are made not just with the finest ingredients, but with
+          heart.
+        </p>
+        <div class="about-signs">
+          <div class="sign-item">
+            <i class="fas fa-leaf"></i>
+            <span>Fresh Ingredients</span>
+          </div>
+          <div class="sign-item">
+            <i class="fas fa-paint-brush"></i>
+            <span>Custom Designs</span>
+          </div>
+          <div class="sign-item">
+            <i class="fas fa-heart"></i>
+            <span>Made with Love</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ORDER FORM MODAL (Desktop)
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="orderModal" onclick="closeOrderForm(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeOrderFormBtn()"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <p class="section-eyebrow">Place Your Order</p>
+        <h3>Custom Cake <em>Request</em></h3>
+        <p class="modal-sub">Fill in the details below — we'll confirm your order on WhatsApp!</p>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="orderName" placeholder="e.g. Priya" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="orderPhone" placeholder="+91 XXXXX XXXXX" />
+        </div>
+        <div class="form-group">
+          <label>Cake / Item</label>
+          <select id="orderCake">
+            <option value="">— Select a cake —</option>
+            <optgroup label="🎂 Ice Cakes">
+              <option>Vanilla Cake – ₹380</option>
+              <option>Strawberry Cake – ₹390</option>
+              <option>Black Forest – ₹430</option>
+              <option>White Forest – ₹430</option>
+              <option>Butterscotch Cake – ₹440</option>
+              <option>Pista Flavour Cake – ₹450</option>
+              <option>Rasamalai Cake – ₹480</option>
+              <option>Chocotruffle Cake – ₹480</option>
+            </optgroup>
+            <optgroup label="🍫 Brownies">
+              <option>Classic Brownie – ₹220</option>
+              <option>Milk Chocolate Brownie – ₹235</option>
+              <option>Double Chocolate Brownie – ₹245</option>
+              <option>Triple Chocolate Brownie – ₹255</option>
+            </optgroup>
+            <optgroup label="🧁 Bento Cakes">
+              <option>Vanilla Bento – ₹270</option>
+              <option>White Forest Bento – ₹280</option>
+              <option>Rasamalai Bento – ₹290</option>
+              <option>Butterscotch Bento – ₹290</option>
+              <option>Pista Bento – ₹300</option>
+              <option>Rosemilk Bento – ₹300</option>
+              <option>Chocotruffle Bento – ₹320</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Delivery Date</label>
+          <input type="date" id="orderDate" />
+        </div>
+        <div class="form-group">
+          <label>Special Instructions (optional)</label>
+          <textarea id="orderNote" rows="3" placeholder="Custom message, design, dietary needs…"></textarea>
+        </div>
+        <button class="modal-submit" onclick="submitOrderToWhatsApp()">
+          <i class="fab fa-whatsapp"></i> Send Order via WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       REVIEWS SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="testimonials" id="reviews">
+    <div class="section-header reveal">
+      <p class="section-eyebrow">Reviews</p>
+      <h2 class="section-title">What Our <em>Customers Say</em></h2>
+      <p class="section-sub">Real love from real customers 💛</p>
+    </div>
+
+    <!-- Existing reviews grid -->
+    <div class="testi-grid" id="reviewsGrid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The chocotruffle cake was absolutely divine! Moist, rich, and perfectly decorated. Priyanga nailed the
+          custom design I requested."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <strong>Anitha R.</strong>
+            <span>Virudhunagar</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Ordered a bento cake for my daughter's birthday — it looked exactly like the reference photo I sent!
+          Incredibly talented baker."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div>
+            <strong>Meena S.</strong>
+            <span>Sivakasi</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p>"The brownies are INCREDIBLE. Fudgy, dense, and the triple chocolate one is something else. Will definitely
+          order again!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">K</div>
+          <div>
+            <strong>Kavitha P.</strong>
+            <span>Aruppukottai</span>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p>"The Rasamalai cake was soft, fresh, and beautifully finished. Everyone at home loved the flavour and the
+          neat decoration."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <strong>Saranya M.</strong>
+            <span>Virudhunagar</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Review Box -->
+    <div class="add-review-wrap reveal">
+      <div class="add-review-box">
+        <h3>Share Your <em>Experience</em></h3>
+        <p>Had a cake from Turtle Bakes? We'd love to hear from you!</p>
+
+        <div class="review-form">
+          <div class="review-form-row">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input type="text" id="reviewName" placeholder="e.g. Karthik" />
+            </div>
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" id="reviewCity" placeholder="e.g. Madurai" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Your Rating</label>
+            <div class="star-picker" id="starPicker">
+              <span class="star-opt" data-val="1">★</span>
+              <span class="star-opt" data-val="2">★</span>
+              <span class="star-opt" data-val="3">★</span>
+              <span class="star-opt" data-val="4">★</span>
+              <span class="star-opt" data-val="5">★</span>
+            </div>
+            <input type="hidden" id="reviewRating" value="0" />
+          </div>
+          <div class="form-group">
+            <label>Your Review</label>
+            <textarea id="reviewText" rows="3" placeholder="Tell us about your experience…"></textarea>
+          </div>
+          <button class="review-submit-btn" onclick="submitReview()">
+            <i class="fas fa-paper-plane"></i> Post Review
+          </button>
+          <p class="review-notice" id="reviewMsg"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       CONTACT SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="contact" id="contact">
+    <div class="contact-container">
+      <div class="contact-info reveal">
+        <p class="section-eyebrow light">Get In Touch</p>
+        <h2>Let's Create<br><em>Something Sweet</em></h2>
+        <p class="contact-sub">Reach out to place an order, ask about customization, or simply say hello!</p>
+
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <strong>Visit Us</strong>
+              <span>12, Periya Kaliyamman Kovil Street,<br>Virudhunagar, Tamil Nadu</span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <strong>Call Us</strong>
+              <span>
+                <a href="tel:+918072955044">+91 80729 55044</a><br>
+                <a href="tel:+916383881006">+91 63838 81006</a>
+              </span>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <strong>Hours</strong>
+              <span>Mon – Sat: 9 AM – 8 PM<br>Sunday: 10 AM – 6 PM</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+          class="btn-whatsapp-large">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <span>Chat on WhatsApp</span>
+            <small>Tap to start enquiry</small>
+          </div>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="contact-visual reveal">
+        <div class="contact-card-stack">
+          <div class="contact-img-card">
+            <img src="https://images.unsplash.com/photo-1551879400-111a9087cd86?w=700&q=85" alt="Brownies"
+              loading="lazy" />
+          </div>
+          <div class="contact-badge">
+            <i class="fab fa-whatsapp"></i>
+            <span>Quick Response</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <span class="logo-turtle">🐢</span>
+          <div class="logo-text">
+            <span class="logo-main">Turtle Bakes</span>
+            <span class="logo-tagline">Artisan Confections</span>
+          </div>
+        </div>
+        <p>Homemade cakes crafted with love and premium ingredients, customized to your taste.</p>
+        <div class="footer-social">
+          <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+            aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          <a href="https://www.instagram.com/turtle__bakes/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <h4>Menu</h4>
+        <ul>
+          <li><a href="#menu">Ice Cakes</a></li>
+          <li><a href="#menu">Brownies</a></li>
+          <li><a href="#menu">Bento Cakes</a></li>
+          <li><a href="#contact">Custom Orders</a></li>
+          <li><a href="estimator.html">Cake Estimator</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact">
+        <h4>Contact</h4>
+        <p><i class="fas fa-map-marker-alt"></i> 12, Periya Kaliyamman Kovil Street, Virudhunagar</p>
+        <p><i class="fas fa-phone-alt"></i> <a href="tel:+918072955044">+91 80729 55044</a></p>
+        <p><i class="fas fa-phone-alt"></i> <a href="tel:+916383881006">+91 63838 81006</a></p>
+        <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+          class="footer-wa">
+          <i class="fab fa-whatsapp"></i> WhatsApp Us
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Turtle Bakes · All Rights Reserved · Made with <i class="fas fa-heart"></i> in Virudhunagar</p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button -->
+  <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+    class="float-wa" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+    <span class="float-wa-pulse"></span>
+  </a>
+
+  <!-- Back to Top -->
+  <button class="back-top" id="backTop" aria-label="Back to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="js/wishlist.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

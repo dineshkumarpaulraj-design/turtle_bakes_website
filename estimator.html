@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Custom Cake Estimator | Turtle Bakes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" sizes="64x64" href="logo.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body class="estimator-page-body">
+  <nav class="navbar wishlist-page-nav scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html#home" class="nav-logo">
+        <span class="logo-turtle"><img src="logo.png" alt="Turtle Bakes logo" style="width: 80px;"></span>
+        <div class="logo-text">
+          <span class="logo-main">Turtle Bakes</span>
+          <span class="logo-tagline">Artisan Confections</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="estimator.html" class="nav-link active-link">Estimator</a></li>
+        <li>
+          <a href="wishlist.html" class="nav-link wishlist-nav-link" aria-label="Open wishlist">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+            <span class="wishlist-count" data-wishlist-count>0</span>
+          </a>
+        </li>
+      </ul>
+      <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+        class="nav-cta nav-cta-mobile">
+        <i class="fab fa-whatsapp"></i> Order Now
+      </a>
+      <a href="index.html#menu" class="nav-cta nav-cta-desktop">
+        <i class="fas fa-arrow-left"></i> Menu
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="estimator-page">
+    <section class="estimator-hero">
+      <p class="section-eyebrow">Custom Order Helper</p>
+      <h1>Custom Cake <em>Estimator</em></h1>
+      <p>Choose from the Turtle Bakes menu and get a quick starting estimate for your custom cake.</p>
+    </section>
+
+    <section class="estimator-shell">
+      <form class="estimator-panel" id="estimatorForm">
+        <div class="estimator-field">
+          <label for="categorySelect">Menu Category</label>
+          <select id="categorySelect"></select>
+        </div>
+
+        <div class="estimator-field">
+          <label for="cakeSelect">Cake / Item</label>
+          <select id="cakeSelect"></select>
+        </div>
+
+        <div class="estimator-field">
+          <label for="sizeSelect">Size / Quantity</label>
+          <select id="sizeSelect"></select>
+        </div>
+
+        <div class="estimator-field">
+          <label for="designSelect">Design Complexity</label>
+          <select id="designSelect">
+            <option value="0">Simple cream finish - included</option>
+            <option value="120">Standard custom design - +₹120</option>
+            <option value="250">Premium theme design - +₹250</option>
+            <option value="450">Detailed sculpted design - +₹450</option>
+          </select>
+        </div>
+
+        <div class="estimator-field">
+          <label for="deliveryDate">Delivery Date</label>
+          <input type="date" id="deliveryDate" />
+        </div>
+
+        <div class="estimator-addons">
+          <label><input type="checkbox" value="50" data-addon="Eggless option" /> Eggless option</label>
+          <label><input type="checkbox" value="120" data-addon="Custom topper" /> Custom topper</label>
+          <label><input type="checkbox" value="150" data-addon="Photo print" /> Photo print</label>
+        </div>
+      </form>
+
+      <aside class="estimator-result">
+        <p class="section-eyebrow">Estimate</p>
+        <h2 id="estimateTotal">₹0</h2>
+        <p id="estimateSummary">Select a cake to calculate your starting estimate.</p>
+        <div class="estimator-breakdown" id="estimateBreakdown"></div>
+        <a href="#" target="_blank" class="btn-whatsapp-large estimator-whatsapp" id="estimateWhatsApp">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <span>Send Estimate</span>
+            <small>Confirm final custom price</small>
+          </div>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </aside>
+    </section>
+  </main>
+
+  <script src="js/wishlist.js"></script>
+  <script src="js/estimator.js"></script>
+</body>
+
+</html>

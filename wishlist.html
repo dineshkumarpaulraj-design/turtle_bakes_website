@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wishlist | Turtle Bakes</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" sizes="64x64" href="logo.png" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body class="wishlist-page-body">
+  <nav class="navbar wishlist-page-nav scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="index.html#home" class="nav-logo">
+        <span class="logo-turtle"><img src="logo.png" alt="Turtle Bakes logo" style="width: 80px;"></span>
+        <div class="logo-text">
+          <span class="logo-main">Turtle Bakes</span>
+          <span class="logo-tagline">Artisan Confections</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#home" class="nav-link">Home</a></li>
+        <li><a href="index.html#menu" class="nav-link">Menu</a></li>
+        <li><a href="index.html#about" class="nav-link">About</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+        <li><a href="estimator.html" class="nav-link">Estimator</a></li>
+        <li>
+          <a href="wishlist.html" class="nav-link wishlist-nav-link active-link" aria-label="Open wishlist">
+            <i class="fas fa-heart"></i>
+            <span>Wishlist</span>
+            <span class="wishlist-count" data-wishlist-count>0</span>
+          </a>
+        </li>
+      </ul>
+      <a href="https://wa.me/916383881006?text=Hi%2C%20I%20want%20to%20enquire%20about%20cakes" target="_blank"
+        class="nav-cta nav-cta-mobile">
+        <i class="fab fa-whatsapp"></i> Order Now
+      </a>
+      <a href="index.html#menu" class="nav-cta nav-cta-desktop">
+        <i class="fas fa-arrow-left"></i> Browse Menu
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="wishlist-page">
+    <section class="wishlist-hero">
+      <p class="section-eyebrow">Saved Favourites</p>
+      <h1>Your Wishlist <em>Collection</em></h1>
+      <p>Keep your favourite Turtle Bakes cakes close while you plan the sweetest custom order.</p>
+    </section>
+
+    <section class="wishlist-shell" aria-live="polite">
+      <div class="wishlist-grid-page" id="wishlistGrid"></div>
+
+      <div class="wishlist-empty" id="wishlistEmpty" hidden>
+        <div class="wishlist-empty-icon"><i class="far fa-heart"></i></div>
+        <h2>Your wishlist is empty <em>❤️</em></h2>
+        <p>Save your favorite cakes here and come back when you are ready to enquire.</p>
+        <a href="index.html#menu" class="btn-primary">
+          <span>Browse Menu</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div class="wishlist-detail-modal" id="wishlistDetailModal" aria-hidden="true">
+    <div class="wishlist-detail-backdrop" data-close-detail></div>
+    <article class="wishlist-detail-card" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="wishlist-detail-close" type="button" data-close-detail aria-label="Close details">
+        <i class="fas fa-times"></i>
+      </button>
+      <div class="wishlist-detail-image">
+        <img id="detailImage" src="" alt="" loading="lazy" />
+      </div>
+      <div class="wishlist-detail-content">
+        <p class="section-eyebrow">Cake Details</p>
+        <h2 id="detailTitle"></h2>
+        <p id="detailDescription"></p>
+        <div class="wishlist-detail-price" id="detailPrice"></div>
+        <a id="detailWhatsapp" class="btn-whatsapp-large" href="#" target="_blank">
+          <i class="fab fa-whatsapp"></i>
+          <div>
+            <span>Enquire on WhatsApp</span>
+            <small>Ask for custom design price</small>
+          </div>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </article>
+  </div>
+
+  <script src="js/wishlist.js"></script>
+  <script>
+    'use strict';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      const grid = document.getElementById('wishlistGrid');
+      const empty = document.getElementById('wishlistEmpty');
+      const modal = document.getElementById('wishlistDetailModal');
+
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      function renderWishlist() {
+        const items = TurtleWishlist.getAll();
+        TurtleWishlist.updateCount();
+        grid.innerHTML = '';
+        empty.hidden = items.length > 0;
+
+        items.forEach((item, index) => {
+          const card = document.createElement('article');
+          card.className = 'wishlist-page-card';
+          card.style.animationDelay = `${index * 70}ms`;
+          card.innerHTML = `
+            <div class="wishlist-page-img">
+              <img src="${item.image}" alt="${item.name}" loading="lazy" />
+            </div>
+            <div class="wishlist-page-info">
+              <h2>${item.name}</h2>
+              <p>${item.description}</p>
+              <div class="wishlist-page-price">${item.price}</div>
+              <div class="wishlist-page-actions">
+                <button class="wishlist-view-btn" type="button" data-view="${item.id}">
+                  <i class="fas fa-eye"></i>
+                  <span>View Details</span>
+                </button>
+                <button class="wishlist-remove-btn" type="button" data-remove="${item.id}" aria-label="Remove ${item.name}">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      function openDetail(product) {
+        document.getElementById('detailImage').src = product.image;
+        document.getElementById('detailImage').alt = product.name;
+        document.getElementById('detailTitle').textContent = product.name;
+        document.getElementById('detailDescription').textContent = product.fullDescription || product.description;
+        document.getElementById('detailPrice').textContent = product.price;
+        document.getElementById('detailWhatsapp').href = TurtleWishlist.whatsAppUrl(product.name);
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeDetail() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      grid.addEventListener('click', event => {
+        const removeButton = event.target.closest('[data-remove]');
+        const viewButton = event.target.closest('[data-view]');
+
+        if (removeButton) {
+          const card = removeButton.closest('.wishlist-page-card');
+          card.classList.add('removing');
+          setTimeout(() => {
+            TurtleWishlist.remove(removeButton.dataset.remove);
+            TurtleWishlist.toast('Removed from wishlist');
+          }, 260);
+        }
+
+        if (viewButton) {
+          const product = TurtleWishlist.findProduct(viewButton.dataset.view);
+          if (product) openDetail(product);
+        }
+      });
+
+      document.querySelectorAll('[data-close-detail]').forEach(button => {
+        button.addEventListener('click', closeDetail);
+      });
+
+      document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') closeDetail();
+      });
+
+      window.addEventListener('turtle:wishlist-updated', renderWishlist);
+      renderWishlist();
+    });
+  </script>
+</body>
+
+</html>
