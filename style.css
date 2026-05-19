@@ -502,22 +502,27 @@ em { font-style: italic; color: var(--gold); }
 
 .featured-track-container {
   flex: 1;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   padding: 1rem 0 2rem;
   cursor: grab;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
   user-select: none;
 }
+.featured-track-container::-webkit-scrollbar { display: none; }
 .featured-track-container:active { cursor: grabbing; }
 
 .featured-track {
   display: flex;
   gap: 1.5rem;
   padding: 0.5rem 4rem;
-  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
 }
 
 .feat-card {
   flex: 0 0 280px;
+  scroll-snap-align: center;
   background: white;
   border-radius: var(--radius-lg);
   overflow: hidden;

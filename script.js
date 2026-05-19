@@ -180,60 +180,69 @@ function initFeaturedSlider() {
     return card.offsetWidth + gap;
   };
 
-  let currentOffset = 0;
-  const maxOffset = () => track.scrollWidth - container.offsetWidth;
-
-  function moveTo(offset) {
-    currentOffset = Math.max(0, Math.min(offset, maxOffset()));
-    track.style.transform = `translateX(-${currentOffset}px)`;
+  function focusCarousel() {
+    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  nextBtn?.addEventListener('click', () => moveTo(currentOffset + CARD_WIDTH() * 2));
-  prevBtn?.addEventListener('click', () => moveTo(currentOffset - CARD_WIDTH() * 2));
+  function moveBy(direction) {
+    container.scrollBy({
+      left: direction * CARD_WIDTH() * 2,
+      behavior: 'smooth'
+    });
+  }
+
+  nextBtn?.addEventListener('click', () => {
+    focusCarousel();
+    moveBy(1);
+  });
+  prevBtn?.addEventListener('click', () => {
+    focusCarousel();
+    moveBy(-1);
+  });
 
   // Mouse drag
   let isDragging = false;
   let startX = 0;
-  let startOffset = 0;
+  let startScrollLeft = 0;
 
   container.addEventListener('mousedown', (e) => {
     isDragging = true;
     startX = e.clientX;
-    startOffset = currentOffset;
-    track.style.transition = 'none';
+    startScrollLeft = container.scrollLeft;
+    container.style.scrollBehavior = 'auto';
     container.style.cursor = 'grabbing';
   });
 
   document.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     const delta = startX - e.clientX;
-    moveTo(startOffset + delta);
+    container.scrollLeft = startScrollLeft + delta;
   });
 
   document.addEventListener('mouseup', () => {
     if (!isDragging) return;
     isDragging = false;
-    track.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+    container.style.scrollBehavior = 'smooth';
     container.style.cursor = 'grab';
   });
 
   // Touch swipe
   let touchStartX = 0;
-  let touchStartOffset = 0;
+  let touchStartScrollLeft = 0;
 
   container.addEventListener('touchstart', (e) => {
     touchStartX = e.touches[0].clientX;
-    touchStartOffset = currentOffset;
-    track.style.transition = 'none';
+    touchStartScrollLeft = container.scrollLeft;
+    container.style.scrollBehavior = 'auto';
   }, { passive: true });
 
   container.addEventListener('touchmove', (e) => {
     const delta = touchStartX - e.touches[0].clientX;
-    moveTo(touchStartOffset + delta);
+    container.scrollLeft = touchStartScrollLeft + delta;
   }, { passive: true });
 
   container.addEventListener('touchend', () => {
-    track.style.transition = 'transform 0.5s cubic-bezier(0.22,1,0.36,1)';
+    container.style.scrollBehavior = 'smooth';
   });
 }
 
@@ -356,17 +365,38 @@ function initBackToTop() {
    SMOOTH SCROLL FOR ANCHOR LINKS
    ============================================= */
 function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  const getScrollTop = (target) => {
+    const navHeight = document.getElementById('navbar')?.offsetHeight || 0;
+    return target.getBoundingClientRect().top + window.scrollY - navHeight - 10;
+  };
+
+  const scrollToHash = (hash, replaceUrl = false) => {
+    if (!hash || hash === '#') return false;
+    const target = document.querySelector(hash);
+    if (!target) return false;
+
+    window.scrollTo({ top: getScrollTop(target), behavior: 'smooth' });
+    if (replaceUrl) history.replaceState(null, '', hash);
+    return true;
+  };
+
+  document.querySelectorAll('a[href*="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
-      const target = document.querySelector(anchor.getAttribute('href'));
+      const url = new URL(anchor.getAttribute('href'), window.location.href);
+      const isSamePage = url.pathname === window.location.pathname && url.origin === window.location.origin;
+      if (!isSamePage || !url.hash) return;
+
+      const target = document.querySelector(url.hash);
       if (!target) return;
       e.preventDefault();
-
-      const navHeight = document.getElementById('navbar').offsetHeight;
-      const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
-      window.scrollTo({ top, behavior: 'smooth' });
+      scrollToHash(url.hash, true);
     });
   });
+
+  if (window.location.hash) {
+    history.scrollRestoration = 'manual';
+    setTimeout(() => scrollToHash(window.location.hash), 80);
+  }
 }
 
 /* =============================================
