@@ -42,8 +42,13 @@ function initNavbar() {
 
   // Hamburger toggle
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
+    const isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('active', isOpen);
+    document.body.classList.toggle('nav-open', isOpen);
+    if (isOpen) {
+      document.documentElement.scrollLeft = 0;
+      document.body.scrollLeft = 0;
+    }
   });
 
   // Close menu on link click (mobile)
@@ -51,6 +56,7 @@ function initNavbar() {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       navLinks.classList.remove('open');
+      document.body.classList.remove('nav-open');
     });
   });
 
@@ -59,6 +65,7 @@ function initNavbar() {
     if (!navbar.contains(e.target)) {
       hamburger.classList.remove('active');
       navLinks.classList.remove('open');
+      document.body.classList.remove('nav-open');
     }
   });
 
@@ -624,7 +631,8 @@ function createReviewCard(review) {
 
 function getStoredReviews() {
   try {
-    return JSON.parse(localStorage.getItem(REVIEW_STORAGE_KEY)) || [];
+    const reviews = JSON.parse(localStorage.getItem(REVIEW_STORAGE_KEY)) || [];
+    return Array.isArray(reviews) ? reviews.filter(review => review && review.text) : [];
   } catch {
     return [];
   }
@@ -634,20 +642,33 @@ function saveReview(review) {
   const reviews = getStoredReviews();
   reviews.push(review);
   localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(reviews));
+  return reviews;
 }
 
-function loadStoredReviews() {
+function updateSavedReviewCount(reviews = getStoredReviews()) {
+  const countEl = document.getElementById('reviewSavedCount');
+  if (!countEl) return;
+
+  const count = reviews.length;
+  countEl.textContent = count === 0
+    ? 'No saved local reviews yet.'
+    : `${count} saved local review${count === 1 ? '' : 's'} shown below.`;
+}
+
+function renderStoredReviews() {
   const grid = document.getElementById('reviewsGrid');
   if (!grid) return;
 
-  getStoredReviews().forEach(review => {
-    if (review.text) {
-      grid.appendChild(createReviewCard(review));
-    }
-  });
+  grid.querySelectorAll('.testi-card.user-review').forEach(card => card.remove());
+  const reviews = getStoredReviews();
+  reviews.forEach(review => grid.appendChild(createReviewCard(review)));
+  updateSavedReviewCount(reviews);
 }
 
-document.addEventListener('DOMContentLoaded', loadStoredReviews);
+document.addEventListener('DOMContentLoaded', renderStoredReviews);
+window.addEventListener('storage', event => {
+  if (event.key === REVIEW_STORAGE_KEY) renderStoredReviews();
+});
 
 function submitReview() {
   const name   = document.getElementById('reviewName').value.trim();
@@ -670,27 +691,11 @@ function submitReview() {
     createdAt: new Date().toISOString()
   };
   saveReview(review);
-
-  // Build stars string
-  const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-
-  // Create card
-  const card = document.createElement('div');
-  card.className = 'testi-card user-review reveal visible';
-  card.innerHTML = `
-    <div class="testi-stars">${stars}</div>
-    <p>"${text}"</p>
-    <div class="testi-author">
-      <div class="testi-avatar">${name.charAt(0).toUpperCase()}</div>
-      <div>
-        <strong>${name}</strong>
-        <span>${city || 'Tamil Nadu'}</span>
-      </div>
-    </div>
-  `;
+  renderStoredReviews();
 
   const grid = document.getElementById('reviewsGrid');
-  grid.appendChild(card);
+  const savedCards = grid.querySelectorAll('.testi-card.user-review');
+  const newestCard = savedCards[savedCards.length - 1];
 
   // Reset form
   document.getElementById('reviewName').value = '';
@@ -704,7 +709,7 @@ function submitReview() {
   msg.style.color = '#25D366';
 
   // Scroll to new review
-  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  newestCard?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
   setTimeout(() => { msg.textContent = ''; }, 4000);
 }

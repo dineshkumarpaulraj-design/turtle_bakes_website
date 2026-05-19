@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Wishlist | Turtle Bakes</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=5" />
   <link rel="icon" type="image/png" sizes="64x64" href="logo.png" />
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Poppins:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap"
@@ -108,18 +108,35 @@
       const grid = document.getElementById('wishlistGrid');
       const empty = document.getElementById('wishlistEmpty');
       const modal = document.getElementById('wishlistDetailModal');
+      const detailCard = modal.querySelector('.wishlist-detail-card');
 
       hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('open');
+        const isOpen = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('active', isOpen);
+        document.body.classList.toggle('nav-open', isOpen);
+        if (isOpen) {
+          document.documentElement.scrollLeft = 0;
+          document.body.scrollLeft = 0;
+        }
       });
 
       navLinks.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           hamburger.classList.remove('active');
           navLinks.classList.remove('open');
+          document.body.classList.remove('nav-open');
         });
       });
+
+      function sizeDetailModal() {
+        const viewportWidth = Math.min(window.innerWidth, document.documentElement.clientWidth || window.innerWidth);
+        const modalGutter = viewportWidth <= 480 ? 20 : 32;
+        const cardWidth = Math.min(920, viewportWidth - modalGutter);
+        modal.style.width = `${viewportWidth}px`;
+        modal.style.maxWidth = `${viewportWidth}px`;
+        detailCard.style.width = `${cardWidth}px`;
+        detailCard.style.maxWidth = `${cardWidth}px`;
+      }
 
       function renderWishlist() {
         const items = TurtleWishlist.getAll();
@@ -155,6 +172,12 @@
       }
 
       function openDetail(product) {
+        document.documentElement.scrollLeft = 0;
+        document.body.scrollLeft = 0;
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+        document.body.classList.remove('nav-open');
+        sizeDetailModal();
         document.getElementById('detailImage').src = product.image;
         document.getElementById('detailImage').alt = product.name;
         document.getElementById('detailTitle').textContent = product.name;
@@ -197,6 +220,10 @@
 
       document.addEventListener('keydown', event => {
         if (event.key === 'Escape') closeDetail();
+      });
+
+      window.addEventListener('resize', () => {
+        if (modal.classList.contains('open')) sizeDetailModal();
       });
 
       window.addEventListener('turtle:wishlist-updated', renderWishlist);

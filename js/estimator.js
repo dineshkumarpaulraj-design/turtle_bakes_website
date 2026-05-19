@@ -65,14 +65,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const whatsappEl = document.getElementById('estimateWhatsApp');
 
   hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('open');
+    const isOpen = navLinks.classList.toggle('open');
+    hamburger.classList.toggle('active', isOpen);
+    document.body.classList.toggle('nav-open', isOpen);
+    if (isOpen) {
+      document.documentElement.scrollLeft = 0;
+      document.body.scrollLeft = 0;
+    }
   });
 
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       hamburger.classList.remove('active');
       navLinks.classList.remove('open');
+      document.body.classList.remove('nav-open');
     });
   });
 
